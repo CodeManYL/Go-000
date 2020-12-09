@@ -31,12 +31,14 @@ func Server (ctx context.Context,g *errgroup.Group,add string) error {
 		select {
 		case <-sigs:
 			fmt.Printf("服务%s 收到指令 \n",add)
-			ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+			defer cancel()
 			s.Shutdown(ctx)
 			return nil
 		case <- ctx.Done():
 			//等5秒处理请求的时间
-			ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+			defer cancel()
 			s.Shutdown(ctx)
 			//server监听的err在shutdonw之前返回 errgroup只会接受第一次的错误 所以这里返回nil都一样
 			return nil
