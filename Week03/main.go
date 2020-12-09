@@ -51,8 +51,6 @@ func Server (ctx context.Context,g *errgroup.Group,add string) error {
 
 
 func main (){
-	g := new(errgroup.Group)
-
 	g,ctx := errgroup.WithContext(context.Background())
 
 	g.Go(func() error {
