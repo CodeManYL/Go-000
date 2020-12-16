@@ -1,0 +1,17 @@
+syntax = "proto3";
+//protoc --proto_path=. --go_out=. --micro_out=. user.proto
+////protoc --proto_path=. --go_out=plugins=grpc:. user.proto
+service User {
+  rpc Login(Request) returns (Response) {}
+}
+
+message Request {
+  string username = 1;
+  string password = 2;
+}
+
+message Response {
+  bool ok = 2;
+  string token = 1;
+  int64 userId = 3;
+}

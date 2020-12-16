@@ -1,0 +1,12 @@
+{
+  "server_name": "user.rpc.server",
+  "server_addr": ":8001",
+  "etcd": {
+    "address": "127.0.0.1:2379"
+  },
+  "db": {
+    "name": "mysql",
+    "address": "root:33css@tcp(127.0.0.1:3306)/gotest?charset=utf8"
+  }
+
+}
