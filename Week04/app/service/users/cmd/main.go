@@ -16,16 +16,15 @@ import (
 )
 
 func serviceRegister(conf *configs.UserRpcConf,s micro.Service){
-	userRepo,err := data.NewUserData(conf.Db.Name,conf.Db.Address)
+	se,err := InitializeService(conf)
 	if err != nil {
 		panic(err)
 	}
-	userBiz := biz.NewUserBiz(userRepo)
-	userService := service.NewUserService(userBiz)
 
-	if err := user.RegisterUserHandler(s.Server(),userService);err != nil {
+	if err := user.RegisterUserHandler(s.Server(),se);err != nil {
 		panic(err)
 	}
+
 }
 
 func main() {
@@ -39,7 +38,7 @@ func main() {
 		registry.Addrs(conf.Etcd.Address),
 	)
 
-	// Create a new service. Optionally include some options here.
+	//micro配置初始化
 	s := micro.NewService(
 		micro.Name(conf.ServerName),
 		micro.Transport(grpc.NewTransport()),
@@ -53,6 +52,7 @@ func main() {
 	)
 	s.Init()
 
+	//服务依赖注册
 	serviceRegister(conf,s)
 
 	if err := s.Run(); err != nil {

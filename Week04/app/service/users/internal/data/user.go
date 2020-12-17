@@ -11,6 +11,9 @@ import (
 
 var _ biz.UserMod = (*userMod)(nil)
 
+var MockUserRepoSet = wire.NewSet(NewUserData,wire.Bind(new(biz.UserMod), new(*userMod)))
+
+
 const  (
 	_getUserByMobileAndPassword = "select * from web_base_user where user_name = ? and  password = ?"
 )
