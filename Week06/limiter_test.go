@@ -1,6 +1,7 @@
 package Week06
 
 import (
+	"fmt"
 	"testing"
 	"time"
 )
@@ -28,5 +29,12 @@ func TestLimiter(t *testing.T){
 	}()
 	time.Sleep(6*time.Second)
 	limiter.Stop()
+}
+
+
+func TestLoop(t *testing.T){
+	var name string
+	fmt.Scanln(&name)
+	fmt.Println(name)
 }
 
